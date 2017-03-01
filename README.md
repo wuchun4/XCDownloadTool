@@ -8,7 +8,7 @@
 
 
 
-#### [English](https://github.com/wuchun4/XCDownloadTool/blob/master/LICENSE_EN)
+#### [English](https://github.com/wuchun4/XCDownloadTool/blob/master/README_EN.md)
 
 swift 断点续传下载工具，重启APP恢复临时下载数据
 
