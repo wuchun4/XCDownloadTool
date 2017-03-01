@@ -14,7 +14,7 @@
 		F43C81E31E60231000E3EB3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F43C81E11E60231000E3EB3C /* LaunchScreen.storyboard */; };
 		F43C81EE1E60231000E3EB3C /* XCDownloadToolExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43C81ED1E60231000E3EB3C /* XCDownloadToolExampleTests.swift */; };
 		F43C81F91E60231000E3EB3C /* XCDownloadToolExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43C81F81E60231000E3EB3C /* XCDownloadToolExampleUITests.swift */; };
-		F43C82081E60238000E3EB3C /* XCDownloadTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43C82071E60238000E3EB3C /* XCDownloadTool.swift */; };
+		F4C719271E66C57300FD1CBA /* XCDownloadTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C719261E66C57300FD1CBA /* XCDownloadTool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +48,8 @@
 		F43C81F41E60231000E3EB3C /* XCDownloadToolExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCDownloadToolExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F43C81F81E60231000E3EB3C /* XCDownloadToolExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCDownloadToolExampleUITests.swift; sourceTree = "<group>"; };
 		F43C81FA1E60231000E3EB3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F43C82071E60238000E3EB3C /* XCDownloadTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDownloadTool.swift; sourceTree = "<group>"; };
 		F43C82091E6034EE00E3EB3C /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F4C719261E66C57300FD1CBA /* XCDownloadTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDownloadTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +100,7 @@
 		F43C81D71E60231000E3EB3C /* XCDownloadToolExample */ = {
 			isa = PBXGroup;
 			children = (
-				F43C82061E60236B00E3EB3C /* XCDownloadTool */,
+				F4C719251E66C57300FD1CBA /* XCDownloadTool */,
 				F43C81D81E60231000E3EB3C /* AppDelegate.swift */,
 				F43C81DA1E60231000E3EB3C /* ViewController.swift */,
 				F43C81DC1E60231000E3EB3C /* Main.storyboard */,
@@ -130,12 +130,13 @@
 			path = XCDownloadToolExampleUITests;
 			sourceTree = "<group>";
 		};
-		F43C82061E60236B00E3EB3C /* XCDownloadTool */ = {
+		F4C719251E66C57300FD1CBA /* XCDownloadTool */ = {
 			isa = PBXGroup;
 			children = (
-				F43C82071E60238000E3EB3C /* XCDownloadTool.swift */,
+				F4C719261E66C57300FD1CBA /* XCDownloadTool.swift */,
 			);
-			path = XCDownloadTool;
+			name = XCDownloadTool;
+			path = ../../XCDownloadTool;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,7 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F43C81DB1E60231000E3EB3C /* ViewController.swift in Sources */,
-				F43C82081E60238000E3EB3C /* XCDownloadTool.swift in Sources */,
+				F4C719271E66C57300FD1CBA /* XCDownloadTool.swift in Sources */,
 				F43C81D91E60231000E3EB3C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

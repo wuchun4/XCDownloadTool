@@ -29,7 +29,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
     private var task:URLSessionDataTask?
     private var outputStream:OutputStream?
     
-
+    
     
     convenience init(url:URL , targetDirectory:String?, shouldResume:Bool) {
         self.init(url: url, fileIdentifier: nil, targetDirectory: targetDirectory, shouldResume: shouldResume)
@@ -45,7 +45,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         self.shouldResume = shouldResume;
         self.fileIdentifier = fileIdentifier;
         if fileIdentifier == nil{
-            let md5str = XCDownloadTool.md5(string: url.description)
+            let md5str = XCDownloadTool.hashStr(string: url.description)
             self.fileIdentifier = md5str
         }
         let tempPath:String = self.tempPath()
@@ -64,7 +64,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
                 
             }
         }
-
+        
         if isdirectory.boolValue{
             let fileName = url.lastPathComponent;
             self.targetPath = NSString.path(withComponents: [targetPath1!,fileName])
@@ -93,19 +93,26 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         }
     }
     
-    static func md5(string:String?)-> String?{
+    static func hashStr(string:String?)-> String?{
         
-        guard let messageData = string?.data(using:String.Encoding.utf8) else { return nil }
-        var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
-        
-        _ = digestData.withUnsafeMutableBytes {digestBytes in
-            messageData.withUnsafeBytes {messageBytes in
-                CC_MD5(messageBytes, CC_LONG(messageData.count), digestBytes)
-            }
+        //        guard let messageData = string?.data(using:String.Encoding.utf8) else { return nil }
+        //        var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
+        //
+        //        _ = digestData.withUnsafeMutableBytes {digestBytes in
+        //            messageData.withUnsafeBytes {messageBytes in
+        //                CC_MD5(messageBytes, CC_LONG(messageData.count), digestBytes)
+        //            }
+        //        }
+        //
+        //        let md5Hex =  digestData.map { String(format: "%02hhx", $0) }.joined()
+        let hex:Int? = string?.hashValue
+        if let _ = hex{
+            let hashStr = String(hex!)
+            return hashStr
         }
-        
-        let md5Hex =  digestData.map { String(format: "%02hhx", $0) }.joined()
-        return md5Hex
+        var str:String? = string?.replacingOccurrences(of: "http", with: "")
+        str = string?.replacingOccurrences(of: "/", with: "")
+        return str
     }
     
     private static var tempFolder:String?
@@ -131,7 +138,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         if self.fileIdentifier != nil{
             tempPath = XCDownloadTool.cacheFolder()?.appending("/" +  self.fileIdentifier!)
         }else if self.targetPath != nil{
-            let md5Str = XCDownloadTool.md5(string: self.targetPath)
+            let md5Str = XCDownloadTool.hashStr(string: self.targetPath)
             tempPath = XCDownloadTool.cacheFolder()?.appending("/" +  md5Str!)
         }
         return tempPath!
@@ -152,7 +159,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         }
         let fileCurrentSize:UInt64? = attributes?[FileAttributeKey.size] as? UInt64
         if fileCurrentSize != nil {
-
+            
             let fileTotalSize:UInt64? = XCDownloadTool.stringValue(path: filePath, key: XCDownloadTool.Key_FileTotalSize)
             self.currentFileSize = fileCurrentSize!
             if let _ = fileTotalSize {
@@ -216,8 +223,8 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         
         _ = data.withUnsafeBytes { self.outputStream?.write($0, maxLength: data.count) }
         self.currentFileSize += UInt64(data.count)
-       DispatchQueue.main.async {
-                self.downloadProgress?(Float(Double(self.currentFileSize).divided(by: Double(self.fileTotalSize))) )
+        DispatchQueue.main.async {
+            self.downloadProgress?(Float(Double(self.currentFileSize).divided(by: Double(self.fileTotalSize))) )
         }
     }
     
@@ -300,7 +307,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         let result = data?.withUnsafeBytes {
             setxattr(path, key, $0, (data?.count)!, 0, 0)
         }
-
+        
         if result == 0{
             return true
         }else{
