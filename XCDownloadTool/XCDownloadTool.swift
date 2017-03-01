@@ -11,16 +11,37 @@ import Foundation
 
 class XCDownloadTool:NSObject , URLSessionDataDelegate{
     
+    /// Download the file path
     public private(set) var targetPath:String?
+    
+    /// The download file storage location
     public var targetDirectory:String?
+    
+    /// Whether to overwrite the existing file， default false
     public var shouldOverwrite:Bool = false
+    
+    /// Whether from the temporary file recovery， default false
     public var shouldResume:Bool = false
+    
+    /// File identifier
     public var fileIdentifier:String?
+    
+    /// The downloaded file size
     public private(set) var currentFileSize:UInt64 = 0
+    
+    /// The total length of file
     public private(set) var fileTotalSize:UInt64 = 0
+    
+    /// Whether the file download is complete
     public private(set) var isFinished:Bool = false
+    
+    /// Download progress block
     public var downloadProgress:((Float) -> Void)?
+    
+    /// Download finished block
     public var downLoadCompletion:((Bool ,String?, Error?) -> Void)?
+    
+    /// Whether to delete temporary folder file when the download is complete
     public var removeTempFile:Bool = true
     
     private static let Key_FileTotalSize:String = "Key_FileTotalSize"

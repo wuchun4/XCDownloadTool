@@ -7,34 +7,33 @@
 
 
 
+##### [中文说明](https://github.com/wuchun4/XCDownloadTool/blob/master/LICENSE)
 
-#### [English](https://github.com/wuchun4/XCDownloadTool/blob/master/LICENSE_EN)
+#### Swift breakpoint continuingly download tools, restart the APP temporarily download data recovery
 
-swift 断点续传下载工具，重启APP恢复临时下载数据
-
-## 安装
-通过 CocoaPods
+## Install
+[CocoaPods](http://cocoapods.org)
 
 ```ruby
 pod 'XCDownloadTool'
 ```
 
-##使用方法
+##Here's an example:
 ```swift
         let url:URL = URL(string: "https://camo.githubusercontent.com/91481851b3130c22fdbb0d3dfb91869fa4bd2174/687474703a2f2f692e696d6775722e636f6d2f30684a384d7a572e676966")!
         let cacheDir:String = NSTemporaryDirectory()
         let directory = cacheDir.appending("simon")
         self.downloadTool = XCDownloadTool(url: url, fileIdentifier: nil, targetDirectory: directory, shouldResume: true)
-        //是否覆盖旧文件
+        //Overwrite the old file
         self.downloadTool?.shouldOverwrite = true
         
-        //下载进度        
+        //Download progress block        
         self.downloadTool?.downloadProgress = {[weak self] (progress)-> Void in
             
             self?.progressLabel.text = "progress: \(progress)"
         }
         
-        //下载完成
+        //Download finished block
         self.downloadTool?.downLoadCompletion = {[weak self] (finished:Bool ,targetPath:String?, error:Error?) -> Void in
             self?.progressLabel.text = "download finished"
             if let _ = targetPath{
@@ -45,15 +44,15 @@ pod 'XCDownloadTool'
 ```
 
 ```swift
-//开始或继续下载
+//To start or continue to download
 self.downloadTool?.startDownload()
 ```
 
 ```swift
-//暂停下载
+//Pause
 self.downloadTool?.suspendDownload()
 ```
 
-## 代码许可
+## License
 
-The MIT License (MIT). 详情见 [License 文件](https://github.com/wuchun4/XCDownloadTool/blob/master/LICENSE).
+The MIT License (MIT). See [License 文件](https://github.com/wuchun4/XCDownloadTool/blob/master/LICENSE).
