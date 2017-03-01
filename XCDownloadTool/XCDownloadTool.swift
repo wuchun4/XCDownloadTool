@@ -95,16 +95,6 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
     
     static func hashStr(string:String?)-> String?{
         
-        //        guard let messageData = string?.data(using:String.Encoding.utf8) else { return nil }
-        //        var digestData = Data(count: Int(CC_MD5_DIGEST_LENGTH))
-        //
-        //        _ = digestData.withUnsafeMutableBytes {digestBytes in
-        //            messageData.withUnsafeBytes {messageBytes in
-        //                CC_MD5(messageBytes, CC_LONG(messageData.count), digestBytes)
-        //            }
-        //        }
-        //
-        //        let md5Hex =  digestData.map { String(format: "%02hhx", $0) }.joined()
         let hex:Int? = string?.hashValue
         if let _ = hex{
             let hashStr = String(hex!)

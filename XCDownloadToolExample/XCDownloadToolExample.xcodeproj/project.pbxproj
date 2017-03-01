@@ -48,7 +48,6 @@
 		F43C81F41E60231000E3EB3C /* XCDownloadToolExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCDownloadToolExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F43C81F81E60231000E3EB3C /* XCDownloadToolExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCDownloadToolExampleUITests.swift; sourceTree = "<group>"; };
 		F43C81FA1E60231000E3EB3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F43C82091E6034EE00E3EB3C /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F4C719261E66C57300FD1CBA /* XCDownloadTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCDownloadTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,7 +106,6 @@
 				F43C81DF1E60231000E3EB3C /* Assets.xcassets */,
 				F43C81E11E60231000E3EB3C /* LaunchScreen.storyboard */,
 				F43C81E41E60231000E3EB3C /* Info.plist */,
-				F43C82091E6034EE00E3EB3C /* Bridging-Header.h */,
 			);
 			path = XCDownloadToolExample;
 			sourceTree = "<group>";
@@ -435,7 +433,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xinchao.XCDownloadToolExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "XCDownloadToolExample/Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -449,7 +448,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xinchao.XCDownloadToolExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "XCDownloadToolExample/Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
