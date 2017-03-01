@@ -55,4 +55,4 @@ self.downloadTool?.suspendDownload()
 
 ## License
 
-The MIT License (MIT). See [License 文件](https://github.com/wuchun4/XCDownloadTool/blob/master/LICENSE).
+The MIT License (MIT). See [License](https://github.com/wuchun4/XCDownloadTool/blob/master/LICENSE).
