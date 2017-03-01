@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "XCDownloadTool"
   s.version      = "0.0.1"
-  s.summary      = "swift 断点续传下载工具，重启APP恢复临时下载数据"
+  s.summary      = "Swift breakpoint continuingly download tools"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-                  swift download tool 
+                  Swift breakpoint continuingly download tools, restart the APP temporarily download data recovery
                    DESC
 
   s.homepage     = "https://github.com/wuchun4/XCDownloadTool"
