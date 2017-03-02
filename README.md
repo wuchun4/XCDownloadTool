@@ -21,7 +21,7 @@ pod 'XCDownloadTool'
 
 ##使用方法
 ```swift
-        let url:URL = URL(string: "https://camo.githubusercontent.com/91481851b3130c22fdbb0d3dfb91869fa4bd2174/687474703a2f2f692e696d6775722e636f6d2f30684a384d7a572e676966")!
+        let url:URL = URL(string: "https://......./687474703a2f2f692e696d6775722e636f6d2f30684a384d7a572e676966")!
         let cacheDir:String = NSTemporaryDirectory()
         let directory = cacheDir.appending("simon")
         self.downloadTool = XCDownloadTool(url: url, fileIdentifier: nil, targetDirectory: directory, shouldResume: true)

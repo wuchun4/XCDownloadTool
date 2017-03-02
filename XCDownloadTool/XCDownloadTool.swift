@@ -9,59 +9,59 @@
 import Foundation
 
 
-class XCDownloadTool:NSObject , URLSessionDataDelegate{
+open class XCDownloadTool:NSObject , URLSessionDataDelegate{
     
     /// Download the file path
-    public private(set) var targetPath:String?
+    open private(set) var targetPath:String?
     
     /// The download file storage location
-    public var targetDirectory:String?
+    open var targetDirectory:String?
     
     /// Whether to overwrite the existing file， default false
-    public var shouldOverwrite:Bool = false
+    open var shouldOverwrite:Bool = false
     
     /// Whether from the temporary file recovery， default false
-    public var shouldResume:Bool = false
+    open var shouldResume:Bool = false
     
     /// File identifier
-    public var fileIdentifier:String?
+    open var fileIdentifier:String?
     
     /// The downloaded file size
-    public private(set) var currentFileSize:UInt64 = 0
+    open private(set) var currentFileSize:UInt64 = 0
     
     /// The total length of file
-    public private(set) var fileTotalSize:UInt64 = 0
+    open private(set) var fileTotalSize:UInt64 = 0
     
     /// Whether the file download is complete
-    public private(set) var isFinished:Bool = false
+    open private(set) var isFinished:Bool = false
     
     /// Download progress block
-    public var downloadProgress:((Float) -> Void)?
+    open var downloadProgress:((Float) -> Void)?
     
     /// Download finished block
-    public var downLoadCompletion:((Bool ,String?, Error?) -> Void)?
+    open var downLoadCompletion:((Bool ,String?, Error?) -> Void)?
     
     /// Whether to delete temporary folder file when the download is complete
-    public var removeTempFile:Bool = true
+    open var removeTempFile:Bool = true
     
-    private static let Key_FileTotalSize:String = "Key_FileTotalSize"
-    private static let kAFNetworkingIncompleteDownloadFolderName:String = "XCIncomplete"
-    private var session:URLSession?
-    private var task:URLSessionDataTask?
-    private var outputStream:OutputStream?
+    fileprivate static let Key_FileTotalSize:String = "Key_FileTotalSize"
+    fileprivate static let kAFNetworkingIncompleteDownloadFolderName:String = "XCIncomplete"
+    fileprivate var session:URLSession?
+    fileprivate var task:URLSessionDataTask?
+    fileprivate var outputStream:OutputStream?
     
     
     
-    convenience init(url:URL , targetDirectory:String?, shouldResume:Bool) {
+    public convenience init(url:URL , targetDirectory:String?, shouldResume:Bool) {
         self.init(url: url, fileIdentifier: nil, targetDirectory: targetDirectory, shouldResume: shouldResume)
     }
     
-    convenience init(url:URL, shouldResume:Bool) {
+    public convenience init(url:URL, shouldResume:Bool) {
         self.init(url: url, fileIdentifier: nil, targetDirectory: nil, shouldResume: shouldResume)
     }
     
-    init(url:URL, fileIdentifier:String?, targetDirectory:String?, shouldResume:Bool) {
-        super.init()
+    public convenience init(url:URL, fileIdentifier:String?, targetDirectory:String?, shouldResume:Bool) {
+        self.init()
         
         self.shouldResume = shouldResume;
         self.fileIdentifier = fileIdentifier;
@@ -114,7 +114,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         }
     }
     
-    static func hashStr(string:String?)-> String?{
+    fileprivate static func hashStr(string:String?)-> String?{
         
         let hex:Int? = string?.hashValue
         if let _ = hex{
@@ -126,8 +126,8 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         return str
     }
     
-    private static var tempFolder:String?
-    public static func cacheFolder() -> String?{
+    fileprivate static var tempFolder:String?
+    open static func cacheFolder() -> String?{
         
         let fileMana = FileManager.default
         
@@ -144,7 +144,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         return tempFolder
     }
     
-    public func tempPath() -> String {
+    open func tempPath() -> String {
         var tempPath:String? = nil;
         if self.fileIdentifier != nil{
             tempPath = XCDownloadTool.cacheFolder()?.appending("/" +  self.fileIdentifier!)
@@ -155,7 +155,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         return tempPath!
     }
     
-    private func getFileSize() -> Void {
+    fileprivate func getFileSize() -> Void {
         
         if !self.shouldResume{
             return
@@ -187,7 +187,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         }
     }
     
-    private func creatDownloadSessionTask(url:URL) -> Void {
+    fileprivate func creatDownloadSessionTask(url:URL) -> Void {
         if self.currentFileSize == self.fileTotalSize && self.currentFileSize != 0{
             self.downFinish(error: nil)
             return;
@@ -214,7 +214,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
     }
     
     //--------------------------
-    internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
+    open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: @escaping (URLSession.ResponseDisposition) -> Swift.Void){
         
         self.isFinished = false
         let filePath = self.tempPath()
@@ -230,7 +230,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         completionHandler(URLSession.ResponseDisposition.allow)
     }
     
-    internal func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
+    open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
         
         _ = data.withUnsafeBytes { self.outputStream?.write($0, maxLength: data.count) }
         self.currentFileSize += UInt64(data.count)
@@ -239,7 +239,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         }
     }
     
-    internal func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
+    open func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?){
         self.outputStream?.close()
         self.outputStream = nil
         self.session?.invalidateAndCancel()
@@ -247,7 +247,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
     }
     
     //--------------------------------
-    private func downFinish(error:Error?) -> Void {
+    fileprivate func downFinish(error:Error?) -> Void {
         var localError:Error? = error;
         if error == nil{
             let tempPath = self.tempPath()
@@ -288,7 +288,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         }
     }
     
-    public static func fileSize(atPath:String) -> UInt64 {
+    open static func fileSize(atPath:String) -> UInt64 {
         var fileSize:UInt64 = 0;
         let fileMana:FileManager = FileManager.default
         if fileMana.fileExists(atPath: atPath){
@@ -311,7 +311,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         self.session?.invalidateAndCancel()
     }
     
-    private static func extendedStringValue(path:String, key:String, value:String) -> Bool{
+    fileprivate static func extendedStringValue(path:String, key:String, value:String) -> Bool{
         
         let data:Data? = value.data(using: String.Encoding.utf8)
         
@@ -326,7 +326,7 @@ class XCDownloadTool:NSObject , URLSessionDataDelegate{
         }
     }
     
-    private static func stringValue(path:String, key:String) -> UInt64?{
+    fileprivate static func stringValue(path:String, key:String) -> UInt64?{
         var bufLength:Int = listxattr(path, nil, 0, 0)
         repeat{
             
