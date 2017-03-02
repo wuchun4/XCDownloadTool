@@ -1,4 +1,4 @@
-# XCDownloadTool for swift
+# XCDownloadTool for swift3
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 [![Latest Stable Version](http://img.shields.io/cocoapods/v/XCDownloadTool.svg)](https://github.com/wuchun4/XCDownloadTool)
