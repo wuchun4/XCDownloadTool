@@ -105,10 +105,22 @@ open class XCDownloadTool:NSObject , URLSessionDataDelegate{
         
         
         if !self.shouldOverwrite{
-            if fileManager.fileExists(atPath: self.targetPath!){
-                DispatchQueue.main.async {
-                    self.isFinished = true;
-                    self.downLoadCompletion?( true, self.targetPath, nil)
+            let haveFile:Bool = fileManager.fileExists(atPath: self.targetPath! , isDirectory: &isdirectory )
+            if haveFile == true && isdirectory.boolValue == false{
+                
+                let fileTotalSize:UInt64? = XCDownloadTool.stringValue(path: self.targetPath!, key: XCDownloadTool.Key_FileTotalSize)
+                var attributes:[FileAttributeKey : Any]?
+                do {
+                    attributes = try fileManager.attributesOfItem(atPath: self.targetPath!)
+                } catch _ as NSError {
+                    
+                }
+                let fileCurrentSize:UInt64? = attributes?[FileAttributeKey.size] as? UInt64
+                if (fileTotalSize != nil) && fileTotalSize == fileCurrentSize{
+                    DispatchQueue.main.async {
+                        self.isFinished = true;
+                        self.downLoadCompletion?( true, self.targetPath, nil)
+                    }
                 }
             }
         }
