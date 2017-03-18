@@ -12,6 +12,8 @@
 
 swift 断点续传下载工具，重启APP恢复临时下载数据
 
+![image](https://github.com/wuchun4/XCDownloadTool/blob/master/2017-03-07%2010.46.53.gif)
+
 ## 安装
 通过 CocoaPods
 
