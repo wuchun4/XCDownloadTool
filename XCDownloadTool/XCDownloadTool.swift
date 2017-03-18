@@ -87,8 +87,8 @@ open class XCDownloadTool:NSObject , URLSessionDataDelegate{
         }
         
         if isdirectory.boolValue{
-            let fileName = url.lastPathComponent;
-            self.targetPath = NSString.path(withComponents: [targetPath1!,fileName])
+            let fileName = self.fileIdentifier;
+            self.targetPath = NSString.path(withComponents: [targetPath1!,fileName!])
         }else{
             self.targetPath = targetPath1;
         }
@@ -103,27 +103,6 @@ open class XCDownloadTool:NSObject , URLSessionDataDelegate{
         self.getFileSize()
         self.creatDownloadSessionTask(url: url)
         
-        
-        if !self.shouldOverwrite{
-            let haveFile:Bool = fileManager.fileExists(atPath: self.targetPath! , isDirectory: &isdirectory )
-            if haveFile == true && isdirectory.boolValue == false{
-                
-                let fileTotalSize:UInt64? = XCDownloadTool.stringValue(path: self.targetPath!, key: XCDownloadTool.Key_FileTotalSize)
-                var attributes:[FileAttributeKey : Any]?
-                do {
-                    attributes = try fileManager.attributesOfItem(atPath: self.targetPath!)
-                } catch _ as NSError {
-                    
-                }
-                let fileCurrentSize:UInt64? = attributes?[FileAttributeKey.size] as? UInt64
-                if (fileTotalSize != nil) && fileTotalSize == fileCurrentSize{
-                    DispatchQueue.main.async {
-                        self.isFinished = true;
-                        self.downLoadCompletion?( true, self.targetPath, nil)
-                    }
-                }
-            }
-        }
     }
     
     fileprivate static func hashStr(string:String?)-> String?{
@@ -214,6 +193,30 @@ open class XCDownloadTool:NSObject , URLSessionDataDelegate{
     }
     
     public func startDownload() -> Void {
+        if !self.shouldOverwrite{
+            let fileManager = FileManager.default
+            var isdirectory:ObjCBool = false
+            let haveFile:Bool = fileManager.fileExists(atPath: self.targetPath! , isDirectory: &isdirectory )
+            if haveFile == true && isdirectory.boolValue == false{
+                
+                let fileTotalSize:UInt64? = XCDownloadTool.stringValue(path: self.targetPath!, key: XCDownloadTool.Key_FileTotalSize)
+                var attributes:[FileAttributeKey : Any]?
+                do {
+                    attributes = try fileManager.attributesOfItem(atPath: self.targetPath!)
+                } catch _ as NSError {
+                    
+                }
+                let fileCurrentSize:UInt64? = attributes?[FileAttributeKey.size] as? UInt64
+                if (fileTotalSize != nil) && fileTotalSize == fileCurrentSize{
+                    DispatchQueue.main.async {
+                        self.isFinished = true;
+                        self.downLoadCompletion?( true, self.targetPath, nil)
+                        return;
+                    }
+                }
+            }
+        }
+        
         if self.task?.state == URLSessionTask.State.suspended {
             self.task?.resume()
         }
