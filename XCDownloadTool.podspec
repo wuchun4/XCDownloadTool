@@ -10,9 +10,9 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage     = "https://github.com/wuchun4/XCDownloadTool"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
+  s.screenshots  = "https://github.com/wuchun4/XCDownloadTool/blob/master/2017-03-07%2010.46.53.gif" #, "www.example.com/screenshots_2.gif"
   s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  s.license      = { :type => "MIT", :file => "https://github.com/wuchun4/XCDownloadTool/blob/master/LICENSE" }
   s.author             = { "Simon" => "870396896@qq.com" }
 
   # s.platform     = :ios
